@@ -1,0 +1,76 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+
+// Define a node structure
+struct ListNode {
+    char val;
+    struct ListNode *next;
+};
+
+// Function to create a new node
+struct ListNode* newNode(char val) {
+    struct ListNode* temp = (struct ListNode*)malloc(sizeof(struct ListNode));
+    temp->val = val;
+    temp->next = NULL;
+    return temp;
+}
+
+// Function to reverse a linked list
+struct ListNode* reverseList(struct ListNode* head) {
+    struct ListNode* prev = NULL;
+    struct ListNode* current = head;
+    struct ListNode* next = NULL;
+
+    while (current != NULL) {
+        next = current->next;
+        current->next = prev;
+        prev = current;
+        current = next;
+    }
+    return prev;
+}
+
+// Function to check if a linked list is a palindrome
+bool isPalindrome(struct ListNode* head) {
+    struct ListNode* slow = head;
+    struct ListNode* fast = head;
+
+    // Move slow to the middle of the list
+    while (fast != NULL && fast->next != NULL) {
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+
+    // Reverse the second half of the list
+    slow = reverseList(slow);
+
+    // Compare the first half with the reversed second half
+    while (slow != NULL) {
+        if (head->val != slow->val) {
+            return false;
+        }
+        head = head->next;
+        slow = slow->next;
+    }
+    return true;
+}
+
+int main() {
+    // Example 1
+    struct ListNode* head1 = newNode('R');
+    head1->next = newNode('A');
+    head1->next->next = newNode('D');
+    head1->next->next->next = newNode('A');
+    head1->next->next->next->next = newNode('R');
+    printf("Output for example 1: %s\n", isPalindrome(head1) ? "Yes" : "No");
+
+    // Example 2
+    struct ListNode* head2 = newNode('C');
+    head2->next = newNode('O');
+    head2->next->next = newNode('D');
+    head2->next->next->next = newNode('E');
+    printf("Output for example 2: %s\n", isPalindrome(head2) ? "Yes" : "No");
+
+    return 0;
+}
