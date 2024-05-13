@@ -1,0 +1,20 @@
+#include<stdio.h>
+
+void fibonacci(int n) {
+    int a = 0, b = 1, nextTerm, sum = 0;
+    printf("Fibonacci series:\n");
+    for (int i = 0; i < n; i++) {
+        printf("%d ", a);
+        sum += a;
+        nextTerm = a + b;
+        a = b;
+        b = nextTerm;
+    }
+    printf("\nSum: %d\n", sum);
+}
+
+int main() {
+    int n = 10;
+    fibonacci(n);
+    return 0;
+}
