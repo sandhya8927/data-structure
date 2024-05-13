@@ -1,0 +1,34 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+void printOddNumbers(struct Node* head) {
+    printf("Output: ");
+    while (head != NULL) {
+        if (head->data % 2 != 0) {
+            printf("%d ", head->data);
+        }
+        head = head->next;
+    }
+    printf("\n");
+}
+
+int main() {
+    struct Node* head = (struct Node*)malloc(sizeof(struct Node));
+    head->data = 1;
+    head->next = (struct Node*)malloc(sizeof(struct Node));
+    head->next->data = 2;
+    head->next->next = (struct Node*)malloc(sizeof(struct Node));
+    head->next->next->data = 3;
+    head->next->next->next = (struct Node*)malloc(sizeof(struct Node));
+    head->next->next->next->data = 7;
+    head->next->next->next->next = NULL;
+
+    printOddNumbers(head);
+
+    return 0;
+}
