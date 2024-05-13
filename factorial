@@ -1,0 +1,15 @@
+#include <stdio.h>
+
+long long factorial(int N) {
+    long long result = 1;
+    for (int i = 1; i <= N; ++i) {
+        result *= i;
+    }
+    return result;
+}
+
+int main() {
+    int N = 4;
+    printf("Factorial of %d is %lld\n", N, factorial(N));  // Output: 24
+    return 0;
+}
