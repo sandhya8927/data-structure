@@ -1,0 +1,80 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Definition for a binary tree node
+struct TreeNode {
+    int val;
+    struct TreeNode *left;
+    struct TreeNode *right;
+};
+
+// Function to create a new binary tree node
+struct TreeNode* createNode(int val) {
+    struct TreeNode* newNode = (struct TreeNode*)malloc(sizeof(struct TreeNode));
+    newNode->val = val;
+    newNode->left = NULL;
+    newNode->right = NULL;
+    return newNode;
+}
+
+// Function to insert a node into the BST
+struct TreeNode* insert(struct TreeNode* root, int val) {
+    if (root == NULL) {
+        return createNode(val);
+    }
+    if (val < root->val) {
+        root->left = insert(root->left, val);
+    } else if (val > root->val) {
+        root->right = insert(root->right, val);
+    }
+    return root;
+}
+
+// Function to perform in-order traversal of the BST and find the Kth smallest element
+void inorder(struct TreeNode* root, int k, int* count, int* result) {
+    if (root == NULL || *count >= k) {
+        return;
+    }
+    inorder(root->left, k, count, result);
+    (*count)++;
+    if (*count == k) {
+        *result = root->val;
+        return;
+    }
+    inorder(root->right, k, count, result);
+}
+
+// Function to find the Kth smallest element in the BST
+int kthSmallest(struct TreeNode* root, int k) {
+    int count = 0;
+    int result = 0;
+    inorder(root, k, &count, &result);
+    return result;
+}
+
+// Main function
+int main() {
+    // Example 1
+    struct TreeNode* root1 = createNode(3);
+    root1->left = createNode(1);
+    root1->right = createNode(4);
+    root1->left->right = createNode(2);
+    int k1 = 1;
+    printf("Output for Example 1: %d\n", kthSmallest(root1, k1));
+
+    // Example 2
+    struct TreeNode* root2 = createNode(5);
+    root2->left = createNode(3);
+    root2->right = createNode(6);
+    root2->left->left = createNode(2);
+    root2->left->right = createNode(4);
+    root2->left->left->left = createNode(1);
+    int k2 = 3;
+    printf("Output for Example 2: %d\n", kthSmallest(root2, k2));
+
+    // Free memory
+    free(root1);
+    free(root2);
+
+    return 0;
+}
