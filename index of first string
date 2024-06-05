@@ -1,0 +1,26 @@
+#include <stdio.h>
+#include <string.h>
+
+// Function to find the index of the first occurrence of substring in str
+int indexOf(const char *str, const char *substring) {
+    char *ptr = strstr(str, substring);
+    if (ptr != NULL) {
+        return ptr - str; // Return the index of the substring in str
+    }
+    return -1; // Return -1 if substring is not found
+}
+
+int main() {
+    const char *str = "Hello, world! This is a test string.";
+    const char *substring = "world";
+    
+    int index = indexOf(str, substring);
+    
+    if (index != -1) {
+        printf("Substring '%s' found at index: %d\n", substring, index);
+    } else {
+        printf("Substring '%s' not found in the string.\n", substring);
+    }
+    
+    return 0;
+}
