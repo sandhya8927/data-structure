@@ -1,0 +1,44 @@
+#include <stdio.h>
+
+// Function to perform selection sort on an array in descending order
+void selectionSortDescending(int arr[], int size) {
+    int i, j, max_idx;
+
+    // One by one move boundary of unsorted subarray
+    for (i = 0; i < size-1; i++) {
+        // Find the maximum element in unsorted array
+        max_idx = i;
+        for (j = i+1; j < size; j++) {
+            if (arr[j] > arr[max_idx]) {
+                max_idx = j;
+            }
+        }
+        // Swap the found maximum element with the first element of the unsorted array
+        int temp = arr[max_idx];
+        arr[max_idx] = arr[i];
+        arr[i] = temp;
+    }
+}
+
+// Function to print an array
+void printArray(int arr[], int size) {
+    for (int i = 0; i < size; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+}
+
+int main() {
+    int arr[] = {64, 25, 12, 22, 11}; // Example array
+    int size = sizeof(arr) / sizeof(arr[0]); // Calculate size of the array
+
+    printf("Unsorted array: \n");
+    printArray(arr, size); // Print the unsorted array
+
+    selectionSortDescending(arr, size); // Call the function to sort the array in descending order
+
+    printf("Sorted array in descending order: \n");
+    printArray(arr, size); // Print the sorted array
+
+    return 0;
+}
